@@ -17,18 +17,21 @@ It is not a standalone executable software, but rather a structured bundle of **
 - **Intelligent Extraction:** Automatically identifies and extracts the core Motivation, Literature Review, Model Setup, Identification Strategy, and Main Results based on paper type (Theory, Empirical, or Structural).
 - **Formula Compression:** Intelligently summarizes dense math blocks and proofs, keeping only the essential notation required for a presentation slide format.
 - **Audience Calibration:** Automatically adjusts the density and slides count for Lightning Talks (5 mins), Conference Talks (15 mins), or full Seminars (60-90 mins).
-- **Anti-Hallucination:** Built-in multi-round verification to ensure equations, citations, and empirical magnitudes reflect the actual source document.
+- **Anti-Hallucination:** Includes executable guard `scripts/anti_hallucination_guard.py` to verify equations, citations, claims, and numeric values against the source.
 - **Compilable Output:** Generates ready-to-use `.tex` source files (using the `metropolis` theme) or Markdown implementations for Marp/Reveal.js.
 
 ### Skill Structure
 ```text
 paper2slides/
-├── SKILL.md                                 # Main execution logic and trigger words
+├── SKILL.md                                 # Main execution logic
+├── scripts/
+│   └── anti_hallucination_guard.py          # Executable anti-hallucination verifier
 └── references/
     ├── extraction_protocol.md               # Rules for extracting content by paper type
     ├── slide_design_principles.md           # Academic presentation best practices 
     ├── compression_rules.md                 # Rules for reducing formula complexity
-    └── beamer_templates.md                  # Baseline compilable LaTeX Beamer structures
+    ├── beamer_templates.md                  # Baseline compilable LaTeX Beamer structures
+    └── anti_hallucination_module.md         # Thresholds and remediation for verification
 ```
 
 ### Installation / Integration
@@ -37,7 +40,7 @@ Since this is an AI Skill rather than a traditional Python/NPM package, "install
 
 **For Claude Desktop / Claude Code:**
 1. Clone this repository into a dedicated `skills` or `.claude/skills` directory in your workspace.
-2. The AI will automatically read the `SKILL.md` when you mention the trigger words.
+2. The AI will automatically read `SKILL.md` when you invoke or mention `$paper2slides`.
 
 **For AntiGravity / Google Deepmind Agents:**
 1. Clone the repository into your designated `workspace/skills` directory.
@@ -64,6 +67,14 @@ The AI will generate a single, clean LaTeX code block that compiles directly int
 - Highlights key variables mathematically (e.g., `\alert{}`).
 - Presenter notes are attached to each slide via `\note{}`.
 
+Recommended post-check:
+```bash
+python3 scripts/anti_hallucination_guard.py \
+  --source "/path/to/paper.tex" \
+  --slides "/path/to/slides.tex" \
+  --report "anti_hallucination_report.md"
+```
+
 ---
 
 <h2 id="简体中文">简体中文</h2>
@@ -77,18 +88,21 @@ The AI will generate a single, clean LaTeX code block that compiles directly int
 - **智能提取:** 根据论文类型（理论、实证或结构模型），自动识别并提取核心的 Motivation、文献定位、模型设定、识别策略 (Identification Strategy) 和主要结果。
 - **公式压缩:** 智能摘要密集的数学推导和证明，仅保留在有限幻灯片演示中必不可少的核心符号与直觉。
 - **受众与时长校准:** 针对闪电演讲 (Lightning Talk, 5分钟)、学术会议 (Conference Talk, 15分钟) 或完整研讨会 (Seminar, 60-90分钟) 自动调整内容密度。
-- **反幻觉自我核查 (Anti-Hallucination):** 内置多轮自我验证工作流，确保生成的方程式、引用和实证估计数值与原始文档绝对一致。
+- **反幻觉自我核查 (Anti-Hallucination):** 内置可执行校验脚本 `scripts/anti_hallucination_guard.py`，自动核查方程、引用、文字结论与数值是否可追溯到原文。
 - **可编译输出:** 生成即插即用、结构完美的 `.tex` 源码（采用现代学术界标配的 `metropolis` 主题），或支持 Marp/Reveal.js 渲染的 Markdown。
 
 ### 技能包目录结构
 ```text
 paper2slides/
-├── SKILL.md                                 # 核心大模型执行逻辑、系统提示词与触发词
+├── SKILL.md                                 # 核心大模型执行逻辑
+├── scripts/
+│   └── anti_hallucination_guard.py          # 反幻觉可执行核查器
 └── references/
     ├── extraction_protocol.md               # 针对不同论文大类的内容提取硬性规则
     ├── slide_design_principles.md           # 学术 Slide 排版最佳实践 (一页一重点等)
     ├── compression_rules.md                 # 减少数学公式复杂度的降维原则
-    └── beamer_templates.md                  # 基础可编译的 LaTeX Beamer 骨架模板
+    ├── beamer_templates.md                  # 基础可编译的 LaTeX Beamer 骨架模板
+    └── anti_hallucination_module.md         # 反幻觉阈值与修复流程
 ```
 
 ### 安装与集成 (Installation)
@@ -97,7 +111,7 @@ paper2slides/
 
 **适用于 Claude Desktop / Claude Code:**
 1. 将此仓库克隆到您工作区专门的 `skills` 或 `.claude/skills` 文件夹中。
-2. 当您在对话中提到触发词时，Claude 会自动读取 `SKILL.md`。
+2. 当您在对话中调用或提到 `$paper2slides` 时，Claude 会自动读取 `SKILL.md`。
 
 **适用于 AntiGravity / Google Agents:**
 1. 将此仓库克隆到您的工作区 `workspace/skills` 目录下。
@@ -122,5 +136,14 @@ paper2slides '/path/to/my_economics_working_paper.pdf'
 大模型最终将输出一个单一的、干净的 LaTeX 代码块。您只需复制或另存为 `.tex` 编译即可：
 - 使用现代的扁平化极简主题 `metropolis`。
 - 实证方程中的核心变量自动使用醒目颜色高亮（如红色 `\alert{}`）。
-- 每张幻灯片底部自动生成对应的口语化演讲草稿 (`\note{}`).---
+- 每张幻灯片底部自动生成对应的口语化演讲草稿 (`\note{}`)。
+
+建议生成后执行：
+```bash
+python3 scripts/anti_hallucination_guard.py \
+  --source "/path/to/paper.tex" \
+  --slides "/path/to/slides.tex" \
+  --report "anti_hallucination_report.md"
+```
+---
 *Built with the Grant Copilot mindset — Designed by economists, for economists.*

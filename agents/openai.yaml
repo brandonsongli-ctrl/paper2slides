@@ -1,0 +1,7 @@
+interface:
+  display_name: "Paper2Slides"
+  short_description: "Economics paper to verified seminar slides"
+  default_prompt: "Use $paper2slides to convert this paper into a 20-minute Beamer deck and run anti-hallucination verification."
+
+policy:
+  allow_implicit_invocation: true
