@@ -64,12 +64,6 @@ The AI will generate a single, clean LaTeX code block that compiles directly int
 - Highlights key variables mathematically (e.g., `\alert{}`).
 - Presenter notes are attached to each slide via `\note{}`.
 
-**Example Output (Snyder and Strömberg, 2010):**
-![Snyder Stromberg Preview](assets/preview_ss.png)
-
-**Example Output (Adena et al., 2015):**
-![CESifo Preview](assets/preview_cesifo.png)
-
 ---
 
 <h2 id="简体中文">简体中文</h2>
@@ -128,13 +122,5 @@ paper2slides '/path/to/my_economics_working_paper.pdf'
 大模型最终将输出一个单一的、干净的 LaTeX 代码块。您只需复制或另存为 `.tex` 编译即可：
 - 使用现代的扁平化极简主题 `metropolis`。
 - 实证方程中的核心变量自动使用醒目颜色高亮（如红色 `\alert{}`）。
-- 每张幻灯片底部自动生成对应的口语化演讲草稿 (`\note{}`).
-
-**生成效果图实例 (Snyder and Strömberg, 2010):**
-![Snyder Stromberg Preview](assets/preview_ss.png)
-
-**生成效果图实例 (Adena et al., 2015):**
-![CESifo Preview](assets/preview_cesifo.png)
-
----
+- 每张幻灯片底部自动生成对应的口语化演讲草稿 (`\note{}`).---
 *Built with the Grant Copilot mindset — Designed by economists, for economists.*
