@@ -31,6 +31,22 @@ paper2slides/
     └── beamer_templates.md                  # Baseline compilable LaTeX Beamer structures
 ```
 
+### Installation / Integration
+
+Since this is an AI Skill rather than a traditional Python/NPM package, "installation" means providing these files to your AI Agent's context window.
+
+**For Claude Desktop / Claude Code:**
+1. Clone this repository into a dedicated `skills` or `.claude/skills` directory in your workspace.
+2. The AI will automatically read the `SKILL.md` when you mention the trigger words.
+
+**For AntiGravity / Google Deepmind Agents:**
+1. Clone the repository into your designated `workspace/skills` directory.
+2. The agent's file-reading tools will automatically sweep this directory for tool augmentation.
+
+**For Cursor / GitHub Copilot (Codex):**
+1. Copy the `paper2slides` folder directly into your project's `.cursorrules` or `.github/prompts` references.
+2. Ask the AI to "@paper2slides" to execute the instructions.
+
 ### How to Use
 Once this skill directory is loaded into your Agent's context or Claude Desktop, trigger it simply by passing the path to an academic PDF or `.tex` file:
 
@@ -74,6 +90,22 @@ paper2slides/
     ├── compression_rules.md                 # 减少数学公式复杂度的降维原则
     └── beamer_templates.md                  # 基础可编译的 LaTeX Beamer 骨架模板
 ```
+
+### 安装与集成 (Installation)
+
+由于这是一个 AI Skill 而非传统的 Python/NPM 软件包，“安装”本质上是将这些文件放入您的 AI 代理 (Agent) 能够读取的上下文目录中。
+
+**适用于 Claude Desktop / Claude Code:**
+1. 将此仓库克隆到您工作区专门的 `skills` 或 `.claude/skills` 文件夹中。
+2. 当您在对话中提到触发词时，Claude 会自动读取 `SKILL.md`。
+
+**适用于 AntiGravity / Google Agents:**
+1. 将此仓库克隆到您的工作区 `workspace/skills` 目录下。
+2. Agent 会通过其内部的工具链自动扫描并挂载此项技能。
+
+**适用于 Cursor / GitHub Copilot (Codex):**
+1. 将 `paper2slides` 文件夹直接放入项目根目录，并在您的 `.cursorrules` 中引用。
+2. 在对话框中输入 `@paper2slides` 即可唤醒并执行相关指令。
 
 ### 如何使用
 如果您的 AI (比如我们配置的 Agent 环境) 已经接入了此技能目录，您只需在对话框中传入论文路径或文档即可触发：
